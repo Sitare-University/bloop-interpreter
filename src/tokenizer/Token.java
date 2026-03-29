@@ -9,12 +9,13 @@ public class Token {
         this.line = line;
     }
 
-    public TokenType getType()  { return type; }
-    public String getValue()    { return value; }
-    public int getLine()        { return line; }
+    public TokenType getType() { return type; }
+    public String getValue()   { return value; }
+    public int getLine()       { return line; }
 
     @Override
     public String toString() {
         return "Token(" + type + ", \"" + value + "\", line=" + line + ")";
     }
 }
+
