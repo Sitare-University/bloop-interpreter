@@ -10,7 +10,7 @@ public class Parser {
         this.current = 0;
     }
 
-    // 🔹 Entry point
+    //  Entry point
     public List<Instruction> parse() {
         List<Instruction> instructions = new ArrayList<>();
         skipNewlines();
@@ -23,7 +23,7 @@ public class Parser {
         return instructions;
     }
 
-    // 🔹 Decide which instruction to parse
+    //  Decide which instruction to parse
     private Instruction parseInstruction() {
         Token token = peek();
 
@@ -36,7 +36,7 @@ public class Parser {
         }
     }
 
-    // 🔹 put <expr> into <var>
+    //  put <expr> into <var>
     private Instruction parseAssign() {
         consume(TokenType.PUT);
         Expression expr = parsePrimary(); // simple for now
@@ -47,7 +47,7 @@ public class Parser {
         return new AssignInstruction(name.getValue(), expr);
     }
 
-    // 🔹 print <expr>
+    //  print <expr>
     private Instruction parsePrint() {
         consume(TokenType.PRINT);
         Expression expr = parsePrimary(); // simple for now
@@ -56,7 +56,7 @@ public class Parser {
         return new PrintInstruction(expr);
     }
 
-    // 🔹 Simple expression (only single value for now)
+    //  Simple expression (only single value for now)
     private Expression parsePrimary() {
         if (match(TokenType.NUMBER)) {
             return new NumberNode(Double.parseDouble(previous().getValue()));
