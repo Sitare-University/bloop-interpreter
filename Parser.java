@@ -89,6 +89,7 @@ public class Parser {
     private boolean check(TokenType type) {
         return !isAtEnd() && peek().getType() == type;
     }
+    
 
     private boolean match(TokenType... types) {
         for (TokenType type : types) {
