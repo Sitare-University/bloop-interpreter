@@ -159,6 +159,59 @@ public class Parser {
     }
 
 
+    /** Top level: handles comparisons. */
+    private Expression parseComparison() {
+        Expression left = parseExpression();
+
+        while (match(TokenType.GREATER, TokenType.LESS, TokenType.EQUAL_EQUAL)) {
+            String op = previous().getValue();
+            Expression right = parseExpression();
+            left = new BinaryOpNode(left, op, right);
+        }
+        return left;
+    }
+
+    /** Handles + and -. */
+    private Expression parseExpression() {
+        Expression left = parseTerm();
+
+        while (match(TokenType.PLUS, TokenType.MINUS)) {
+            String op = previous().getValue();
+            Expression right = parseTerm();
+            left = new BinaryOpNode(left, op, right);
+        }
+        return left;
+    }
+
+    /** Handles * and /. */
+    private Expression parseTerm() {
+        Expression left = parsePrimary();
+
+        while (match(TokenType.STAR, TokenType.SLASH)) {
+            String op = previous().getValue();
+            Expression right = parsePrimary();
+            left = new BinaryOpNode(left, op, right);
+        }
+        return left;
+    }
+
+    /** Handles a single literal or variable. */
+    private Expression parsePrimary() {
+        if (match(TokenType.NUMBER)) {
+            return new NumberNode(Double.parseDouble(previous().getValue()));
+        }
+        if (match(TokenType.STRING)) {
+            return new StringNode(previous().getValue());
+        }
+        if (match(TokenType.IDENTIFIER)) {
+            return new VariableNode(previous().getValue());
+        }
+        throw new RuntimeException(
+            "Unexpected token in expression: " + peek() + " on line " + peek().getLine());
+    }
+
+
+
 
     // ── ── Token stream utilities ─────────────────────────────
 
