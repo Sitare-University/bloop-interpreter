@@ -13,7 +13,7 @@ It is being built using Java to understand how programming languages work intern
 
 - **Afzl Raza** → Tokenizer
 - **Rani Kumari** → Parser
-- **Gaurabh Rathor** → Instruction & Expression
+- **Gaurav Rathore** → Instruction & Expression
 
 
 ## Project Structure (initial)
