@@ -83,7 +83,7 @@ public class Parser {
     }
 
 
-    // ── Reapeat parsing ───────────────────────────────────────────────
+    // ── Repeat parsing ───────────────────────────────────────────────
 
     /**
      * repeat <number> times:
@@ -139,10 +139,6 @@ public class Parser {
                 break;
             }
 
-            // If no newlines were skipped and we're at a top-level keyword,
-            // that means the block is empty — stop.
-            if (newlineCount == 0 && isAtEnd()) break;
-
             // Parse the next instruction as a body instruction.
             Instruction instr = parseInstruction();
             if (instr != null) body.add(instr);
@@ -150,7 +146,12 @@ public class Parser {
 
         return body;
     }
-    //  Helper Function for parseIndentedBlock
+
+        //  Helper Function for parseIndentedBlock
+        // NOTE: This method assumes flat block structure.
+        // It may not correctly handle nested constructs like
+        // IF inside REPEAT (or vice versa). This is a known limitation
+        // and can be improved later with proper indentation tracking.
     private boolean isBlockStarter(TokenType type) {
         return type == TokenType.PUT    ||
                type == TokenType.PRINT  ||
